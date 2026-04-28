@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gami-rpc
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gami-rpc
+  template:
+    metadata:
+      labels:
+        app: gami-rpc
+    spec:
+      containers:
+        - name: rpc-node
+          image: ethereum/client-go:stable
+          args:
+            - "--http"
+            - "--http.addr=0.0.0.0"
+            - "--http.port=8545"
+          ports:
+            - containerPort: 8545
